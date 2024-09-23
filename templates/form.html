@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bellman-Ford Interactive</title>
+    
+    <!-- Internal CSS for Styling -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;  /* Light blue background */
+            color: #333;  /* Text color */
+        }
+
+        h1 {
+            color: #2c3e50;  /* Dark blue for headings */
+            text-align: center;
+            font-weight: bold;
+        }
+
+        form {
+            margin: 0 auto;
+            padding: 20px;
+            width: 300px;
+            background-color: #fff;  /* White background for form */
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: bold;
+            color: #34495e;  /* Medium blue for labels */
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background-color: #3498db;  /* Blue button */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #2980b9;  /* Darker blue on hover */
+        }
+
+        .edge-inputs {
+            margin-bottom: 15px;
+        }
+
+        .container {
+            text-align: center;
+        }
+    </style>
+
+    <!-- JavaScript to dynamically add edge input fields -->
+    <script>
+        function addEdgeFields() {
+            let numberOfEdges = document.getElementById('num_edges').value;
+            let edgesDiv = document.getElementById('edges');
+            edgesDiv.innerHTML = '';  // Clear previous edge inputs
+
+            for (let i = 0; i < numberOfEdges; i++) {
+                edgesDiv.innerHTML += `<div class="edge-inputs">
+                    <label><strong>Edge ${i + 1}</strong></label><br>
+                    Source: <input type="number" name="edge_${i}_source" required><br>
+                    Destination: <input type="number" name="edge_${i}_destination" required><br>
+                    Weight: <input type="number" name="edge_${i}_weight" required><br><br>
+                </div>`;
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Enter Graph Parameters</h1>
+        <form action="/result" method="POST">
+            <label for="num_vertices">Number of Vertices:</label>
+            <input type="number" name="num_vertices" required><br>
+
+            <label for="num_edges">Number of Edges:</label>
+            <input type="number" id="num_edges" name="num_edges" required onchange="addEdgeFields()"><br>
+
+            <div id="edges"></div> <!-- Edge input fields will appear here -->
+
+            <label for="start">Start Station:</label>
+            <input type="number" name="start" required><br>
+
+            <label for="end">End Station:</label>
+            <input type="number" name="end" required><br>
+
+            <label for="max_stops">Max Stops:</label>
+            <input type="number" name="max_stops" required><br>
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+</html>
